@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<title> 
+	
+{{ title }}
+
+</title>
+</head>
+<body>
+	
+	<div class="Conseils">
+	<h1>Conseils</h1>
+		<div>
+        <h2>Ecrivez les ingrédients de votre recette:</h2>
+            <p>Attention ! Sautez la ligne après l'inscription de chaque ingrédient.</p>
+      </div>
+	<form action="{{ url_for("recette")}}" method="post">
+	
+	
+	<div>
+	<button type="submit" onclick='http://127.0.0.1:5000/recettes'>Entrer une nouvelle recette</button>
+	</div>
+	
+	</form>
+	</div>
+	
+</body>
+</html>
+
+
+
+
+
+
+
+

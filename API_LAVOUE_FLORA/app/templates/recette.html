@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<title> 
+	
+{{ title }}
+
+</title>
+</head>
+<body>
+	
+	<div class="Quels sont les ingrédients de votre repas?">
+	<h1>Quels sont les ingrédients de votre repas?</h1>
+		<div>
+        <h2>Ecrivez les ingrédients de votre recette:</h2>
+            <p>Attention ! Sautez la ligne après l'inscription de chaque ingrédient.</p>
+      </div>
+	<form action="{{ url_for("recette")}}" method="post">
+	
+	<div>
+	<label for="story">La liste des ingrédients de votre recette</label>
+	</div>
+	
+	<div>
+	<textarea id="story" name="story" rows="5" cols="33" required>
+	</textarea>
+	</div>
+	
+	<div>
+	<button type="submit" onclick='http://127.0.0.1:5000/nutrition'>Analyser l'apport nutritif</button>
+	</div>
+	
+	</form>
+	</div>
+	
+</body>
+</html>

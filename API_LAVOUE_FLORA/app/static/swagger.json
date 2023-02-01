@@ -1,0 +1,340 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Projet API - ITS2",
+    "description": "C'est un site pour analyser nos recettes de cuisine. Nous rentrons les ingrédients de notre recette. Ensuite, nous pouvons analyser celle-ci et voir l'indice nutritionnel moyen de la recette, une analyse complète des apports des différents ingrédients et la concordance avec les régimes alimentaires.\n\nLiens utiles:\n- [La base de données utilisée](https://fr.openfoodfacts.org/)\n- [Tuto youtube](https://www.youtube.com/watch?v=66-mMlldcwE&t=64s)",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "flolavoue@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:5000/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "inscription",
+      "description": "S'inscrire sur mon site web"
+    },
+    {
+      "name": "recette",
+      "description": "Entrer les recettes"
+    }
+  ],
+  "paths": {
+    "/inscription": {
+      "post": {
+        "tags": [
+          "inscription"
+        ],
+        "summary": "Enregistrer ses informations confidentielles",
+        "description": "L'utilisateur entre son nom, son prénom et son mot de passe avant de pouvoir passer à la page suivante, /recettes. Les informations sont enregistrées dans une base de donnée.",
+        "operationId": "lolilol",
+        "parameters": [
+          {
+            "name": "nom",
+            "in": "query",
+            "description": "Nom de l'utilisateur lui permettant de s'enregistrer",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "prénom",
+            "in": "query",
+            "description": "Prénom de l'utilisateur lui permettant de s'enregistrer",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Mot de passe",
+            "in": "query",
+            "description": "Mot de passe l'utilisateur lui permettant de s'enregistrer",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "S'enregistrer sur mon site web",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Inscription"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Inscription"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/recettes": {
+      "post": {
+        "tags": [
+          "recette"
+        ],
+        "summary": "Entrer les ingrédients de sa recette",
+        "description": "Quels sont les ingrédients de votre repas? Ecrivez les ingrédients de votre recette. Attention ! Sautez la ligne après l'inscription de chaque ingrédient dans la zone de texte. Ensuite appuyez sur le bouton pour analyser votre repas. Pour l'instant, le site web n'accepte que les ingrédients faisant parti de cette liste (nutella, banane, frites, compote, Maïzena, jambon)",
+        "parameters": [
+          {
+            "name": "ingrédients",
+            "in": "query",
+            "description": "Liste des ingrédients utilisés dans la recette",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Enregistrer les ingrédients de la recette",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/recette"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/recette"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Id not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/recettes/nutrition": {
+      "post": {
+        "tags": [
+          "recette"
+        ],
+        "summary": "Donne des informations nutritionnelles sur les ingrédients",
+        "description": "Cette page donne apport nutritif de votre plat. Nous pouvons lire les ingrédients de chaque aliment, les additifs de la recette, le nutriscore moyen de la recette, si la recette convient à certains régimes alimentaires.",
+        "parameters": [
+          {
+            "name": "ingrédients",
+            "in": "query",
+            "description": "Liste des ingrédients de chaque aliment",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "nutriscore",
+            "in": "query",
+            "description": "Le nutriscore moyen de la recette",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Analyses",
+            "in": "query",
+            "description": "La concordance avec les régimes alimentaires",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "additifs",
+            "in": "query",
+            "description": "Liste des additifs de chaque ingrédient",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/nutrition"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/nutrition"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "nutrition": {
+        "type": "object",
+        "properties": {
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "Sucre, huile de palme, NOISETTES 13%",
+              "banane"
+            ]
+          },
+          "nutriscore": {
+            "type": "string",
+            "example": "A"
+          },
+          "Analyses": {
+            "type": "string",
+            "example": "Sans Huile de palme,vegan,vegetarien"
+          },
+          "additifs": {
+            "type": "string",
+            "example": "e300"
+          }
+        },
+        "xml": {
+          "name": "nutrition"
+        }
+      },
+      "recette": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 19
+          },
+          "nom": {
+            "type": "string",
+            "example": "LAVOUE"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "Flora"
+          },
+          "mdp": {
+            "type": "string",
+            "example": "codesecret"
+          },
+          "ingredients": {
+            "type": "string",
+            "example": "banane"
+          }
+        },
+        "xml": {
+          "name": "recette"
+        }
+      },
+      "Inscription": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 19
+          },
+          "nom": {
+            "type": "string",
+            "example": "LAVOUE"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "Flora"
+          },
+          "mdp": {
+            "type": "string",
+            "example": "codesecret"
+          }
+        },
+        "xml": {
+          "name": "Inscription"
+        }
+      }
+    },
+    "securitySchemes": {
+      "petstore_auth": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+            "scopes": {
+              "write:pets": "modify pets in your account",
+              "read:pets": "read your pets"
+            }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}

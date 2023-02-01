@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<title> 
+	
+{{ title }}
+
+</title>
+</head>
+<body>
+	
+	<div class="L'apport nutritif de votre plat">
+	<h1>L'apport nutritif de votre plat</h1>
+		<div>
+        <h2>Les ingrédients de chaque aliment:</h2>
+            <p>{{ ingredients }}</p>
+      </div>
+	  <div>
+        <h2>Adapté au régime alimentaire : </h2>
+            <p>{{ analyse }}</p>
+      </div>
+	  <div>
+        <h2>Les additifs de la recette : </h2>
+            <p>{{ additif}}</p>
+      </div>
+	  <div>
+        <h2>Le nutriscore moyen de la recette:</h2>
+            <p>{{ nutriscore }}</p>
+      </div>
+	  
+	<form action="{{ url_for("recette")}}" method="post">
+	
+	
+	</form>
+	</div>
+	
+</body>
+</html>
